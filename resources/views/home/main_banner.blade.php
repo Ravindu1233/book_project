@@ -6,7 +6,7 @@
           <div class="header-text">
             <h6>Book is Knowledge</h6>
             <h2>Knowledge is Power</h2>
-            <p>Library is a really cool and professional design for your websites. This HTML CSS template is based on Bootstrap v5 and it is designed for related web portals. Liberty can be freely downloaded from github</p>
+            <p> This template offers a clean and modern design suitable for showcasing books and managing a library. It's built on Bootstrap and provides a professional look perfect for your internship project</p>
             <div class="buttons">
               <div class="border-button">
                 <a href="explore.html">Explore Top Books</a>
