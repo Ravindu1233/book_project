@@ -80,6 +80,12 @@ public function add_category(Request $request)
     return redirect('/category_page')->with('message','Category Updated Successfully');
   }
 
+    public function images()
+{
+    return $this->hasMany(Image::class);
+}
+
+
   public function add_book()
   {
     $data = Category::all();
