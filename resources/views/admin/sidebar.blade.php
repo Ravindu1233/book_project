@@ -3,8 +3,8 @@
         <div class="sidebar-header d-flex align-items-center">
           <div class="avatar"><img src="admin/img/avatar-6.jpg" alt="..." class="img-fluid rounded-circle"></div>
           <div class="title">
-            <h1 class="h5">Mark Stephen</h1>
-            <p>Web Designer</p>
+            <h1 class="h5">Ravindu Dilshan</h1>
+            <p>Software engineer</p>
           </div>
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
@@ -18,8 +18,8 @@
                   </a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled">
                     <li><a href="{{url('add_book')}}">Add Books</a></li>
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Page</a></li>
+                    <li><a href="{{url('show_book')}}">show Books</a></li>
+                    
                   </ul>
                 </li>
 
