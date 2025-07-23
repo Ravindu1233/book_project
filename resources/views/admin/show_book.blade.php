@@ -73,6 +73,7 @@
                     <th>Quantity</th>
                     <th>Description</th>
                     <th>Category</th>
+                    <th>Subcategory</th>
                     <th>Auther Image</th>
                     <th>Book Image</th>
                     <th>Delete</th>
@@ -86,6 +87,7 @@
                     <td>{{$book->quantity}}</td>
                     <td>{{$book->description}}</td>
                     <td>{{$book->category->cat_title}}</td>
+                    <td>{{ $book->subcategory->sub_title}}</td> 
 
                     <td>
                         <img class="img_auther" src="auther/{{$book->auther_img}}">

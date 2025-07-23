@@ -75,16 +75,28 @@
 
                 </div>
                             <div class="div_pad">
-                                <label>Category</label>
-                                <select name="category">
+        <label>Category</label>
+        <select name="category" id="category_select" required>
+            <option value="{{ $data->category_id }}">{{ $data->category->cat_title }}</option>
+            @foreach($category as $cat)
+                @if($cat->id != $data->category_id)
+                    <option value="{{ $cat->id }}">{{ $cat->cat_title }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
 
-                                    <option value="{{$data->category_id}}"> {{$data->category->cat_title}}</option>
-                                    @foreach($category as $category)
-                                    <option value="{{$category->id}}">{{$category->cat_title}}
-                                    </option>
-
-                                    @endforeach
-                                </select>
+    <div class="div_pad">
+        <label>Subcategory</label>
+        <select name="subcategory" id="subcategory_select" required>
+            <option value="{{ $data->subcategory_id }}">{{ $data->subcategory->sub_title }}</option>
+            @foreach($subcategories as $subcat)
+                @if($subcat->id != $data->subcategory_id)
+                    <option value="{{ $subcat->id }}">{{ $subcat->sub_title }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
 
                             <div class="div_pad">
 
@@ -93,7 +105,7 @@
                             </div>
 
                             <div class="div_pad">
-                                <label>Chnage Auther Image</label>
+                                <label>Change Auther Image</label>
                                 <input type="file" name="auther_img">
 
                             </div>
@@ -131,6 +143,32 @@
       </div>
              
     @include('admin.footer')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#category_select').change(function(){
+        var category_id = $(this).val();
+
+        $.ajax({
+            url: '/get-subcategories/' + category_id,
+            type: 'GET',
+            success: function(subcategories) {
+                $('#subcategory_select').empty();
+
+                // Add a default "Select Subcategory" option
+                $('#subcategory_select').append('<option value="">Select Subcategory</option>');
+
+                $.each(subcategories, function(index, subcat){
+                    $('#subcategory_select').append('<option value="'+subcat.id+'">'+subcat.sub_title+'</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+
 
 
 

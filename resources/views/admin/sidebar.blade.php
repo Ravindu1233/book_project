@@ -11,6 +11,7 @@
         <ul class="list-unstyled">
                 <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
                 <li><a href="{{url('category_page')}}"> <i class="icon-grid"></i>Category </a></li>
+                <li><a href="{{url('subcat_page')}}"> <i class="icon-grid"></i>Sub Category </a></li>
 
                 <li>
                   <a href="#exampledropdownDropdown"  aria-expanded="false" data-toggle="collapse">

@@ -77,15 +77,25 @@
                         <label>Description</label>
                         <textarea name="description"></textarea>
                     </div>
-                      <div class="div_pad">
-                        <label>Category</label>
-                        <select name="category" required>
-                            <option>Select a Category</option>
-                            @foreach($data as $data)
-                            <option value="{{$data->id}}">{{$data->cat_title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                   <div class="div_pad">
+    <label>Category</label>
+    <select name="category" id="category" required>
+        <option value="">Select a Category</option>
+        @foreach($data as $category)
+            <option value="{{ $category->id }}">{{ $category->cat_title }}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="div_pad">
+    <label>Subcategory</label>
+    <select name="subcategory" id="subcategory" required>
+        <option value="">Select a Subcategory</option>
+        <!-- dynamically filled -->
+    </select>
+</div>
+
+
                      <div class="div_pad">
                         <label>Book Image</label>
                         <input type="file" name="book_img">
@@ -112,6 +122,37 @@
      
              
     @include('admin.footer')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#category').on('change', function() {
+        var categoryId = $(this).val();
+        if(categoryId) {
+            $.ajax({
+                url: '/get-subcategories/' + categoryId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#subcategory').empty();
+                    $('#subcategory').append('<option value="">Select a Subcategory</option>');
+                    $.each(data, function(key, subcategory) {
+                        $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.sub_title+'</option>');
+                    });
+                },
+                error: function() {
+                    alert('Error fetching subcategories.');
+                }
+            });
+        } else {
+            $('#subcategory').empty();
+            $('#subcategory').append('<option value="">Select a Subcategory</option>');
+        }
+    });
+});
+</script>
+
 
 
 

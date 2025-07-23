@@ -54,20 +54,34 @@
 
           <div class="div_center">
 
-          <div>
+ <div>
+  @if(session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ session('message') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
 
-            @if(session()->has('message'))
+  @if(session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ session('error') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
+</div>
 
-            <div class="alert alert-success">
-               {{session()->get('message')}}
+{{-- SweetAlert popups for success/error --}}
 
-               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+<script>
+  @if(session('message'))
+    swal("Success!", "{{ session('message') }}", "success");
+  @endif
 
-            </div>
+  @if(session('error'))
+    swal("Error!", "{{ session('error') }}", "error");
+  @endif
+</script>
 
-            @endif
-
-          </div>
 
             <h1 class="cat_label"> Add Category</h1>
 
@@ -90,23 +104,34 @@
           <div>
 
             <table class="center">
-            <tr>
-              <th>Category Name</th>
-              <th>Action</th>
-            </tr>
-            @foreach($data as $data)
-            <tr>
-              <td>{{ $data->cat_title }}</td>
-              <td>
-                <a class="btn btn-info" href="{{url('edit_category', $data->id)}}">Update</a>
+  <tr>
+    <th>Category Name</th>
+    <th>Subcategories</th>
+    <th>Action</th>
+  </tr>
+  @foreach($data as $category)
+    <tr>
+      <td>{{ $category->cat_title }}</td>
+      <td>
+        @if($category->subcategories->isNotEmpty())
+          <ul style="text-align: left;">
+            @foreach($category->subcategories as $sub)
+              <li>{{ $sub->sub_title }}</li>
 
-
-
-                <a onclick="confirmation(event)" class="btn btn-danger" href="{{url('cat_delete', $data->id)}}">Delete</a>
-              </td>
-            </tr>
             @endforeach
-          </table>
+          </ul>
+        @else
+          <em>No Subcategories</em>
+        @endif
+      </td>
+      <td>
+        <a class="btn btn-info" href="{{ url('edit_category', $category->id) }}">Update</a>
+        <a onclick="confirmation(event)" class="btn btn-danger" href="{{ url('cat_delete', $category->id) }}">Delete</a>
+      </td>
+    </tr>
+  @endforeach
+</table>
+
 
 
 
@@ -122,8 +147,11 @@
      
              
     @include('admin.footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script type="text/javascript">
+
 
     function confirmation(ev) {
     ev.preventDefault();
