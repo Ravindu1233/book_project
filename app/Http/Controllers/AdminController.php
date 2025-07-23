@@ -97,9 +97,21 @@ public function cat_delete($id)
     return redirect('/category_page')->with('message','Category Updated Successfully');
   }
 
+<<<<<<< HEAD
  public function add_book()
 {
     $data = Category::with('subcategories')->get(); // now includes subcategories
+=======
+    public function images()
+{
+    return $this->hasMany(Image::class);
+}
+
+
+  public function add_book()
+  {
+    $data = Category::all();
+>>>>>>> 736d65632cc3b4f46edf5747e27f30faf68da1ab
     return view('admin.add_book', compact('data'));
 }
 
